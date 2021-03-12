@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Tasks</title>
+</head>
+<body>
+     <center><h1>Your Tasks</h1></center><br>
+    
+
+    <table style="width:100%" border="1">
+        <tr>
+            <th>#</th>  
+            <th>Task</th>
+            <th>Description</th>
+            <th>ops-update</th>
+            <th>ops-delete</th>
+        </tr>
+        {% for item in data %}
+        {% csrf_token %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.desc }}</td>
+            <td>
+                <a href = "{% url 'update' item.id %}"> update</a>
+            </td>
+            <td>
+            <form method = 'POST' action = "{% url 'delete' item.id %}">
+                {% csrf_token %}
+                <input type = 'submit' value="Delete">
+            </form>
+            </td>
+        </tr>
+
+        {% endfor %}
+      </table>
+</body>
+</html>
